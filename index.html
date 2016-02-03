@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="Sprint6">
 <head>
     <title>Budget App</title>
 
@@ -10,8 +10,10 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/angular.min.js"></script>
 </head>
-<body>
+<body ng-controller="MainCtrl">
     <div class="container container-main">
         <div class="page-header">
             <h1>2,174.50 <small>RON</small></h1>
@@ -26,28 +28,10 @@
         <div class="table-container">
             <table class="table table-hover">
                 <tbody>
-                    <tr class="red">
-                        <td>4th @13:31</td>
-                        <td>Pizza</td>
-                        <td>-20.00</td>
-                        <td width="40"><button type="button" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></button></td>
-                    </tr>
-                    <tr class="red">
-                        <td>2nd @21:18</td>
-                        <td>Iesire in oras</td>
-                        <td>-40.00</td>
-                        <td width="40"><button type="button" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></button></td>
-                    </tr>
-                    <tr class="red">
-                        <td>1st @14:34</td>
-                        <td>Cumparaturi</td>
-                        <td>-132.54</td>
-                        <td width="40"><button type="button" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></button></td>
-                    </tr>
-                    <tr class="green">
-                        <td>1st @10:00</td>
-                        <td>Salariu</td>
-                        <td>+2,500.00</td>
+                    <tr ng-repeat="entry in entries" class="{{entry.amount < 0 ? 'red' : 'green'}}">
+                        <td ng-model="entry.date">{{entry.date}}</td>
+                        <td ng-model="entry.description">{{entry.description}}</td>
+                        <td ng-model="entry.amount">{{entry.amount}}</td>
                         <td width="40"><button type="button" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></button></td>
                     </tr>
                 </tbody>
@@ -70,5 +54,6 @@
             </ul>
         </nav>
     </div>
+<script type="application/javascript" src="js/main.js"></script>
 </body>
 </html>
