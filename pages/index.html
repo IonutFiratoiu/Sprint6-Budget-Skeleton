@@ -4,17 +4,17 @@
 <div class="align-center">
     <div class="btn-group" role="group">
         <a href="" class="btn btn-primary">Balance</a>
-        <a href="" class="btn btn-default" ng-click = "filteredData = {{entry.amount > 0}}>Income</a>
-                <a href="" class="btn btn-default" ng-click = "filteredData = {{entry.amount <= 0}}">Spendings</a>
+        <a href="" class="btn btn-default">Income</a>
+                <a href="" class="btn btn-default">Spendings</a>
     </div>
 </div>
 <div class="table-container">
     <table class="table table-hover">
         <tbody>
-        <tr ng-repeat="entry in entries | filter: filteredData" class="{{entry.amount < 0 ? 'red' : 'green'}}">
-            <td ng-model="entry.date">{{entry.date}}</td>
-            <td ng-model="entry.description">{{entry.description}}</td>
-            <td ng-model="entry.amount">{{entry.amount}}</td>
+        <tr ng-repeat="item in transactions">
+            <td ng-model="">{{item.date}}</td>
+            <td ng-model="">{{item.description}}</td>
+            <td ng-model="">{{item.amount}}</td>
             <td width="40"><button type="button" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></button></td>
         </tr>
         </tbody>
