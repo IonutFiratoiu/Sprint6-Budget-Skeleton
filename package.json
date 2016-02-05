@@ -1,0 +1,15 @@
+{
+  "name": "Sprint6-App",
+  "version": "1.0.0",
+  "description": "Sprintt6",
+  "author": "Ionut Firatoiu",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4"
+  }
+}

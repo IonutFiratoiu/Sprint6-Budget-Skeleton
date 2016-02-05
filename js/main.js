@@ -1,26 +1,45 @@
-var app  = angular.module('Sprint6', []);
-
-app.controller('MainCtrl', function($scope) {
-    $scope.entries = [
-        {description: 'Pizza', amount: -20, date: '2016-02-01 13:15'},
-        {description: 'Iesire in oras', amount: -47, date: '2016-02-03 22:15'},
-        {description: 'Salariu', amount: +2500, date: '2016-01-15 14:15'},
-        {description: 'Haine', amount: -20, date: '2016-01-25 18:47'},
-        {description: 'Pariuri', amount: +320, date: '2016-01-28 16:25'},
-        {description: 'Pantofi', amount: -200, date: '2016-01-25 19:11'}
-    ];
-
-    $scope.add = function() {
-        $scope.entries.push({
-            description: '',
-            amuount: 0,
-            date: newDate()
-        });
-    };
-});
-
+/*
 $(document).ready(function() {
     $('.input-group.date').datetimepicker({
         format: 'YYYY-MM-DD HH:mm'
+    });
+});
+*/
+
+var app  = angular.module('Sprint6', ['ngRoute']);
+var pages = [
+    {name: 'Home', url: '', ctrl: 'HomeCtrl'},
+    {name: 'Spend', url: 'spend'},
+    {name: 'Receive', url: 'receive'}
+];
+
+app.config(function($locationProvider, $routeProvider) {
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+
+    angular.forEach(pages, function(page) {
+        $routeProvider.when('/' + page.url, {
+            templateUrl: 'pages/' + (!page.url ? 'index' : page.url) + '.html',
+            controller: page.ctrl || 'DummyCtrl'
+        })
+    });
+
+    $routeProvider.otherwise({
+        templateUrl: 'pages/index.html',
+        controller: 'HomeCtrl'
+    });
+});
+
+app.controller('MainCtrl', function($scope) {});
+
+app.controller('DummyCtrl', angular.noop);
+
+app.controller('HomeCtrl', function($scope, TransactionStore) {
+    $scope.transactions = [];
+
+    TransactionStore.getTransactionsByMonth(moment().format('YYYY-MM')).then(function(items) {
+        $scope.transactions = items;
     });
 });
