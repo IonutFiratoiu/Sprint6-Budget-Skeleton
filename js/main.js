@@ -151,20 +151,26 @@
     app.filter('FilterTransactions', function () {
         return function (item, sign) {
             if (item) {
+                var result = [];
                 angular.forEach(item, function(individualItem) {
-                    console.log(individualItem);
-                    if (sign === '') {
-                        console.log(individualItem);
-                        return individualItem;
+                    if (sign === 'all') {
+                        result.push(individualItem);
+                        return result;
                     } else if (sign === '-' && individualItem.amount < 0) {
-                        console.log(individualItem);
-                        return individualItem;
+                        result.push({
+                            date: individualItem.date,
+                            description: individualItem.description,
+                            amount: Math.abs(individualItem.amount)
+                        });
+                        return result;
                     } else if (sign === '+' && individualItem.amount > 0) {
-                        console.log(individualItem);
-                        return individualItem;
+                        result.push(individualItem);
+                        return result;
                     }
                 });
             }
+
+            return result;;
         };
     });
 })();
