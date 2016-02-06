@@ -50,7 +50,7 @@
                 $scope.form = angular.copy($scope.default);
             };
             if($location.path() === '/spend') {
-                $scope.form.amount = -1 *($scope.form.amount);
+                $scope.form.amount = -1 * ($scope.form.amount);
             };
 
             TransactionStore.add($scope.form);
@@ -79,6 +79,19 @@
             TransactionStore.delete(item.id).then(function () {
                 TransactionStore.getTransactionsByMonth(moment().format('YYYY-MM'));
             });
+        };
+
+        $scope.addClass = function (item, sign) {
+            if(sign === 'all') {
+                console.log('miauu');
+                if(item.amount < 0) {
+                    console.log('red');
+                    return 'red';
+                }else{
+                    console.log('green')
+                    return 'green';
+                };
+            };
         };
     });
 
