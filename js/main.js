@@ -37,7 +37,7 @@
         $scope.pages = pages;
     });
 
-    app.controller('FormCtrl', function ($scope, TransactionStore) {
+    app.controller('FormCtrl', function ($scope, TransactionStore, $location) {
         $scope.data = {
             description: 'default',
             amount: 'default',
@@ -48,6 +48,9 @@
             $scope.default = {};
             $scope.reset = function () {
                 $scope.form = angular.copy($scope.default);
+            };
+            if($location.path() === '/spend') {
+                $scope.form.amount = -1 *($scope.form.amount);
             };
 
             TransactionStore.add($scope.form);
@@ -62,8 +65,6 @@
             $scope.transactions = items;
         });
 
-        var total = 0;
-
         $scope.total = function () {
             var total = 0;
 
@@ -72,10 +73,10 @@
             });
 
             return total;
-        }
+        };
 
         $scope.deleteOnClick = function (item) {
-            TransactionStore.delete(item.id).success(function () {
+            TransactionStore.delete(item.id).then(function () {
                 TransactionStore.getTransactionsByMonth(moment().format('YYYY-MM'));
             });
         };
@@ -170,7 +171,7 @@
                 });
             }
 
-            return result;;
+            return result;
         };
     });
 })();
