@@ -148,17 +148,23 @@
         })();
     });
 
-    //app.filter('FilterTransactions', function () {
-    //    return function (sign, item) {
-    //        if (sign === '') {
-    //            return item;
-    //        } else {
-    //            if (sign === '-' && item.amount < 0) {
-    //                return item;
-    //            }else if(sign === '+' && item.amount > 0) {
-    //                return item;
-    //                }
-    //        };
-    //    };
-    //});
+    app.filter('FilterTransactions', function () {
+        return function (item, sign) {
+            if (item) {
+                angular.forEach(item, function(individualItem) {
+                    console.log(individualItem);
+                    if (sign === '') {
+                        console.log(individualItem);
+                        return individualItem;
+                    } else if (sign === '-' && individualItem.amount < 0) {
+                        console.log(individualItem);
+                        return individualItem;
+                    } else if (sign === '+' && individualItem.amount > 0) {
+                        console.log(individualItem);
+                        return individualItem;
+                    }
+                });
+            }
+        };
+    });
 })();

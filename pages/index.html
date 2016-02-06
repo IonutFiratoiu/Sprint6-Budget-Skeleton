@@ -11,7 +11,7 @@
 <div class="table-container">
     <table class="table table-hover">
         <tbody>
-        <tr ng-repeat="item in transactions">
+        <tr ng-repeat="item in transactions | FilterTransactions: sign">
             <td ng-model="item.date">{{ item.date }}</td>
             <td ng-model="item.description">{{ item.description }}</td>
             <td ng-model="item.amount">{{ item.amount }}</td>
