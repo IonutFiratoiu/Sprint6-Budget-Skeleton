@@ -55,10 +55,11 @@
 
             TransactionStore.add($scope.form);
             $scope.reset();
+            $location.path('/index');
         };
     });
 
-    app.controller('HomeCtrl', function ($scope, TransactionStore) {
+    app.controller('HomeCtrl', function ($scope, TransactionStore, $location, $route) {
         $scope.transactions = [];
 
         TransactionStore.getTransactionsByMonth(moment().format('YYYY-MM')).then(function (items) {
@@ -77,18 +78,16 @@
 
         $scope.deleteOnClick = function (item) {
             TransactionStore.delete(item.id).then(function () {
-                TransactionStore.getTransactionsByMonth(moment().format('YYYY-MM'));
+                $location.path('/index');
+                $route.reload();
             });
         };
 
         $scope.addClass = function (item, sign) {
             if(sign === 'all') {
-                console.log('miauu');
                 if(item.amount < 0) {
-                    console.log('red');
                     return 'red';
                 }else{
-                    console.log('green')
                     return 'green';
                 };
             };
