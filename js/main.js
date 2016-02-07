@@ -37,7 +37,7 @@
         $scope.pages = pages;
     });
 
-    app.controller('FormCtrl', function ($scope, TransactionStore, $location) {
+    app.controller('FormCtrl', function ($scope, TransactionStore, $location, $route) {
         $scope.data = {
             description: 'default',
             amount: 'default',
@@ -56,6 +56,7 @@
             TransactionStore.add($scope.form);
             $scope.reset();
             $location.path('/index');
+            $route.reload();
         };
     });
 
